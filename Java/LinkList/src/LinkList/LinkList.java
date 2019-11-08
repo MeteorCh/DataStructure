@@ -58,13 +58,7 @@ public class LinkList<T> {
      * @param data
      */
     public void pushBack(T data){
-        Node newNode=new Node(data);
-        if (head==null)
-            head=newNode;
-        else {
-            getNode(length-1).next=newNode;
-        }
-        this.length++;
+       insert(this.length,data);
     }
 
     /**
