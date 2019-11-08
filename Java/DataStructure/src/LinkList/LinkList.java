@@ -12,8 +12,8 @@ package LinkList;
  */
 public class LinkList<T> {
 
-    private Node head=null;//头结点
-    private int length=0;//链表的长度
+    protected Node head=null;//头结点
+    protected int length=0;//链表的长度
 
 
     /**

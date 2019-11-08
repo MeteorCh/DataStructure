@@ -8,7 +8,6 @@ public class Main {
         list.insert(0,"2");
         list.insert(1,"3");
         list.insert(4,"4");
-        list.remove(4);
         System.out.println(list);
     }
 }

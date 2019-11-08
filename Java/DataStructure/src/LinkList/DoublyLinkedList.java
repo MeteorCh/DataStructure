@@ -3,7 +3,7 @@ package LinkList;
 /**
  * 双向循环链表
  * 用法示例：
- LinkList.DoublyLinkedList<String> list=new DoublyLinkedList<String>();
+DoublyLinkedList<String> list=new DoublyLinkedList<String>();
  list.insert(0,"0");
  list.insert(0,"1");
  list.insert(0,"2");
@@ -129,12 +129,10 @@ public class DoublyLinkedList<T> {
         String outString="";
         if (curNode!=null){
             do {
+                curNode=curNode.pre;
                 outString+=curNode.toString()+",";
-                curNode=curNode.next;
             }while (curNode!=head);
         }
         return outString;
     }
-
-
 }
