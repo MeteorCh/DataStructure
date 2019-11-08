@@ -93,17 +93,14 @@ public class LinkList<T> {
      * @return
      */
     public T remove(int position){
-        T data;
+        T data=null;
         if (position==0){
             data=head.data;
             head=head.next;
-        }else {
+        }else if(position<length){
             Node node= getNode(position-1);
             Node positionNode=node.next;
-            if (node.next!=null)
-                node.next=node.next.next;
-            else
-                throw new IndexOutOfBoundsException();
+            node.next=node.next.next;
             data=positionNode.data;
         }
         length--;
