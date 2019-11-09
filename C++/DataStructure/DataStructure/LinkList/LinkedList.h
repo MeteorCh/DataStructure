@@ -17,6 +17,7 @@
 template<class T>
 class LinkList
 {
+public:
 	struct Node//节点定义
 	{
 		T data;
@@ -26,10 +27,9 @@ class LinkList
 			next = NULL;
 		}
 	};
-private:
+protected:
 	Node* head;
 	int length;
-protected:
 	/**
 	* 获取某位置的节点
 	*/
@@ -90,13 +90,7 @@ public:
 	*/
 	void pushBack(T data)
 	{
-		Node* newNode = new Node(data);
-		if (head == NULL)
-			head = newNode;
-		else {
-			getNode(length - 1)->next = newNode;
-		}
-		this->length++;
+		insert(length, data);
 	}
 
 	/**

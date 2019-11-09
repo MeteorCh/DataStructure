@@ -140,6 +140,14 @@ public class LinkList<T> {
             next=null;
         }
 
+        public T getData() {
+            return data;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
         @Override
         public String toString() {
             return data.toString();

@@ -1,13 +1,16 @@
 import LinkList.DoublyLinkedList;
+import LinkList.LinkList;
+import StackAndQueue.LinkStack;
 
 public class Main {
     public static void main(String[] args){
-        LinkList.DoublyLinkedList<String> list=new DoublyLinkedList<String>();
-        list.insert(0,"0");
-        list.insert(0,"1");
-        list.insert(0,"2");
-        list.insert(1,"3");
-        list.insert(4,"4");
-        System.out.println(list);
+        LinkStack<String> stack=new LinkStack<>();
+        stack.pushBack("0");
+        stack.pushBack("1");
+        stack.pushBack("2");
+        System.out.println(stack);
+        System.out.println(stack.pop());
+        System.out.println(stack.pop());
+        System.out.println(stack.pop());
     }
 }

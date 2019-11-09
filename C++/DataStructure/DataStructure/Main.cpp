@@ -6,23 +6,18 @@
 #include <string>
 #include <iostream>
 #include "LinkList/LinkedList.h"
+#include "StackAndQueue/LinkStack.h"
 using namespace std;
 
 int main()
 {
-	LinkList<std::string> link_list;
-	link_list.pushBack("0");
-	link_list.pushBack("1");
-	link_list.pushBack("2");
-	link_list.insert(0,"3");
-	link_list.remove(0);
-	link_list.remove(1);
-	std::cout <<"元素0所在的下标为"<< link_list.indexOf("0")<<std::endl;
-	for (int i=0;i<link_list.getLength();i++)
-	{
-		std::cout << link_list.get(i)<<",";
-	}
-	std::cout << std::endl;
+	LinkStack<string> link_stack;
+	link_stack.pushBack("0");
+	link_stack.pushBack("1");
+	link_stack.pushBack("2");
+	cout << link_stack.pop();
+	cout << link_stack.pop();
+	cout << link_stack.pop();
     return 0;
 }
 
