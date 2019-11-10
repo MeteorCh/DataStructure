@@ -20,6 +20,17 @@ public class LinkStack<T> extends LinkList<T> {
     }
 
     /**
+     * 获取栈尾元素，但并不弹出
+     * @return
+     */
+    public T peek(){
+        if (this.head!=null){
+            return get(0);
+        }
+        return null;
+    }
+
+    /**
      * 重写pushback方法，使用头插法，每次将节点插入到链表的头部
      * @param data
      */
