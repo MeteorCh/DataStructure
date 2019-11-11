@@ -1,16 +1,15 @@
-import LinkList.DoublyLinkedList;
-import LinkList.LinkList;
-import StackAndQueue.LinkStack;
+
+import StackAndQueue.LinkQueue;
 
 public class Main {
     public static void main(String[] args){
-        LinkStack<String> stack=new LinkStack<>();
-        stack.pushBack("0");
-        stack.pushBack("1");
-        stack.pushBack("2");
-        System.out.println(stack);
-        System.out.println(stack.pop());
-        System.out.println(stack.pop());
-        System.out.println(stack.pop());
+        LinkQueue<String> queue=new LinkQueue<>();
+        queue.enQueue("0");
+        queue.enQueue("1");
+        queue.enQueue("2");
+        System.out.println(queue);
+        System.out.println(queue.deQueue());
+        System.out.println(queue.deQueue());
+        System.out.println(queue.deQueue());
     }
 }

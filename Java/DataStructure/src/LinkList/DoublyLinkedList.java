@@ -43,13 +43,30 @@ public class DoublyLinkedList<T> {
         if (head==null||position<0||position>=length)
             throw new IndexOutOfBoundsException();
         else {
-            Node curNode=head;
-            int tmp=0;
-            while (tmp<position){
-                curNode=curNode.next;
-                tmp++;
+            /*此处充分利用双向链表的优点，首先判断position和half=length/2的大小关系
+            如果position大于half，则从后往前遍历
+            如果position小于等于half，则从前往后遍历
+            */
+            int half=this.length/2;
+            Node curNode;
+            int tmp;
+            if (position<=half){//从前往后遍历
+                curNode=head;
+                tmp=0;
+                while (tmp<position){
+                    curNode=curNode.next;
+                    tmp++;
+                }
+                return curNode;
+            }else {//从后往前遍历
+                curNode=head.pre;
+                tmp=length-1;
+                while (tmp>position){
+                    curNode=curNode.pre;
+                    tmp--;
+                }
+                return curNode;
             }
-            return curNode;
         }
     }
 
@@ -123,14 +140,18 @@ public class DoublyLinkedList<T> {
         return data;
     }
 
+    public T get(int position){
+        return getNode(position).data;
+    }
+
     @Override
     public String toString() {
         Node curNode=head;
         String outString="";
         if (curNode!=null){
             do {
-                curNode=curNode.pre;
                 outString+=curNode.toString()+",";
+                curNode=curNode.next;
             }while (curNode!=head);
         }
         return outString;

@@ -30,6 +30,9 @@
     <ClInclude Include="StackAndQueue\LinkStack.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="StackAndQueue\LinkQueue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -42,6 +45,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="StackAndQueue\LinkStack.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StackAndQueue\LinkQueue.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

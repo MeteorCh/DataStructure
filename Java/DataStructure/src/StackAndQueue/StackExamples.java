@@ -10,8 +10,7 @@ import java.util.List;
 public class StackExamples {
 
     public static void main(String[] args) {
-        FullArrange arrange=new FullArrange();
-        arrange.test(3);
+        System.out.println(CalculateMathExpression.calcExpressionValue("10.2+((2+3)*4)-5"));
     }
 
     public static class FullArrange{//全排列
@@ -67,13 +66,13 @@ public class StackExamples {
             LinkStack<String> stack=new LinkStack<>();
             for (int i=0;i<inString.length();i++){
                 char item=inString.charAt(i);
-                if (item>='0'&&item<='9'){//如果是数字加入到输出队列
+                if ((item>='0'&&item<='9')||item=='.'){//如果是数字加入到输出队列
                     //此处进行两位数的处理
                     String tmp=String.valueOf(item);
                     int j=i+1;
                     while (j<inString.length()){
                         char item2=inString.charAt(j);
-                        if (item2>='0'&&item2<='9')
+                        if ((item2>='0'&&item2<='9')||item2=='.')
                         {
                             tmp+=String.valueOf(item2);
                             j++;
@@ -176,4 +175,5 @@ public class StackExamples {
                 return (float) (val1*1.0/val2);
         }
     }
+
 }

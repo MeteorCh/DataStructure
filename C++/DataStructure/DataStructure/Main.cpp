@@ -5,19 +5,18 @@
 #include <stdexcept>
 #include <string>
 #include <iostream>
-#include "LinkList/LinkedList.h"
-#include "StackAndQueue/LinkStack.h"
+#include "StackAndQueue/LinkQueue.h"
 using namespace std;
 
 int main()
 {
-	LinkStack<string> link_stack;
-	link_stack.pushBack("0");
-	link_stack.pushBack("1");
-	link_stack.pushBack("2");
-	cout << link_stack.pop();
-	cout << link_stack.pop();
-	cout << link_stack.pop();
+	LinkQueue<string> queue;
+	queue.enQueue("0");
+	queue.enQueue("1");
+	queue.enQueue("2");
+	cout << queue.deQueue() << endl;
+	cout << queue.deQueue() << endl;
+	cout << queue.deQueue() << endl;
     return 0;
 }
 
