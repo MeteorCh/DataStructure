@@ -3,6 +3,17 @@ package StackAndQueue;
 import LinkList.DoublyLinkedList;
 
 public class LinkQueue<T> extends DoublyLinkedList<T> {
+
+    public LinkQueue(){//默认构造函数
+        super();
+    }
+
+    public LinkQueue(T[] data){//从数组构造队列
+        super();
+        for (T item:data){
+            enQueue(item);
+        }
+    }
     /**
      * 入队操作
      * @param data
