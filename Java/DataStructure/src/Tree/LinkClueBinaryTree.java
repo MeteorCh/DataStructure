@@ -4,27 +4,40 @@ import StackAndQueue.LinkQueue;
 import java.util.Scanner;
 
 /**
- * 二叉树的实现
+ * 链式线索二叉树
  * 使用示例：
- LinkBinaryTree<String> binaryTree=new LinkBinaryTree<>();
+ LinkClueBinaryTree<String> binaryTree=new LinkClueBinaryTree<>();
  String[] s=new String[]{"A","B","D","#","#","E","#","#","C","#","F","#","#"};
  LinkQueue<String> data=new LinkQueue<>(s);
  binaryTree.creStringTree(data);
  System.out.print("前序遍历结果为：");
  binaryTree.print(0);
+ System.out.println();
  System.out.print("中序遍历结果为：");
  binaryTree.print(1);
+ System.out.println();
  System.out.print("后序遍历结果为：");
  binaryTree.print(2);
+ System.out.println();
  System.out.print("层次遍历结果为：");
  binaryTree.print(3);
+ System.out.println();
+ System.out.print("中序线索遍历结果为：");
+ binaryTree.print(4);
+ System.out.println();
  System.out.print("树的高度为："+binaryTree.getHeight());
+ System.out.println();
+ System.out.print("树中结点个数为："+binaryTree.getSize());
+ System.out.println();
  */
-public class LinkBinaryTree<T> {
-    public class Node<T>{//二叉树中的节点类
-        T data;
-        Node lChild;
-        Node rChild;
+public class LinkClueBinaryTree<T> {
+
+    public class Node<T> {
+        protected T data;
+        protected Node lChild;
+        protected Node rChild;
+        protected boolean lFlag=false;
+        protected boolean rFlag=false;
         public Node(T data){
             this.data=data;
             lChild=null;
@@ -32,16 +45,20 @@ public class LinkBinaryTree<T> {
         }
     }
 
-    protected Node root;//根节点
+    protected Node<T> root;//根节点
+    private Node<T> pre=null;//记录前节点的全局变量
 
 
     public void creStringTree(){
         Scanner scanner=new Scanner(System.in);
         root=createStringNode(scanner,null);
+        midTraverseClue(root);
     }
 
     public void creStringTree(LinkQueue<String> data){
         root=createStringNode(null,data);
+        //扫描二叉树创建线索
+        midTraverseClue(root);
     }
 
     protected Node createStringNode( Scanner scanner,LinkQueue<String> data){
@@ -63,6 +80,22 @@ public class LinkBinaryTree<T> {
         return node;
     }
 
+    protected void midTraverseClue(Node node){//中序遍历线索化
+        if (node!=null){
+            midTraverseClue(node.lChild);
+            if (node.lChild==null){
+                node.lChild=pre;
+                node.lFlag=true;
+            }
+            if (pre!=null&&pre.rChild==null){
+                pre.rFlag=true;
+                pre.rChild=node;
+            }
+            pre=node;
+            midTraverseClue(node.rChild);
+        }
+    }
+
     /**
      * 前序遍历
      * @param node
@@ -71,7 +104,9 @@ public class LinkBinaryTree<T> {
         if (node!=null)
         {
             System.out.print(node.data+",");
-            preTraverse(node.lChild);
+            if (!node.lFlag)
+                preTraverse(node.lChild);
+            if (!node.rFlag)
             preTraverse(node.rChild);
         }
     }
@@ -82,9 +117,25 @@ public class LinkBinaryTree<T> {
      */
     protected void midTraverse(Node node){
         if (node!=null){
-            midTraverse(node.lChild);
+            if (!node.lFlag)
+                midTraverse(node.lChild);
             System.out.print(node.data+",");
-            midTraverse(node.rChild);
+            if (!node.rFlag)
+                midTraverse(node.rChild);
+        }
+    }
+
+    public void clueMidTraverse(Node node){
+        if (node==null){//找到中序遍历的第一个节点，即树中最左边的叶节点
+            Node firstNode=pre;
+            while (firstNode!=null){
+                System.out.print(firstNode.data+",");
+                firstNode=firstNode.rChild;
+            }
+        }else
+        {
+            pre=node;
+            clueMidTraverse(node.lChild);
         }
     }
 
@@ -94,8 +145,10 @@ public class LinkBinaryTree<T> {
      */
     protected void postTraverse(Node node){
         if (node!=null){
-            postTraverse(node.lChild);
-            postTraverse(node.rChild);
+            if (!node.lFlag)
+                postTraverse(node.lChild);
+            if (!node.rFlag)
+                postTraverse(node.rChild);
             System.out.print(node.data+",");
         }
     }
@@ -112,9 +165,9 @@ public class LinkBinaryTree<T> {
                 while (!queue.isEmpty()){
                     Node node=queue.deQueue();
                     System.out.print(node.data+",");
-                    if (node.lChild!=null)
+                    if (node.lChild!=null&&!node.lFlag)
                         queue1.enQueue(node.lChild);
-                    if (node.rChild!=null)
+                    if (node.rChild!=null&&!node.rFlag)
                         queue1.enQueue(node.rChild);
                 }
                 LinkQueue temp=queue;
@@ -142,6 +195,9 @@ public class LinkBinaryTree<T> {
             case 3:
                 levelTraverse();
                 break;
+            case 4:
+                clueMidTraverse(root);
+                break;
             default:
                 System.out.println("输入参数有误");
         }
@@ -155,9 +211,29 @@ public class LinkBinaryTree<T> {
         if (node==null)
             return 0;
         else {
-            int lHeight=1+getHeight(node.lChild);
-            int rHeight=1+getHeight(node.rChild);
+            int lHeight=0,rHeight=0;
+            if (!node.lFlag)
+                lHeight=1+getHeight(node.lChild);
+            if (!node.rFlag)
+                rHeight=1+getHeight(node.rChild);
             return lHeight>rHeight?lHeight:rHeight;
+        }
+    }
+
+    public int getSize(){//获取树的节点总数
+        return getSize(root);
+    }
+
+    protected int getSize(Node node){
+        if (node==null||(node.lChild==null&&node.rChild==null))
+            return 0;
+        else {
+            int lSize=0,rSize=0;
+            if (!node.lFlag)
+                lSize=1+getSize(node.lChild);
+            if (!node.rFlag)
+                rSize=1+getSize(node.rChild);
+            return lSize+rSize;
         }
     }
 }
