@@ -1,4 +1,4 @@
-package Tree;
+package BinaryTree;
 
 import StackAndQueue.LinkQueue;
 import java.util.Scanner;

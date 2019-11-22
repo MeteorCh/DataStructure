@@ -1,7 +1,7 @@
 
 
 import StackAndQueue.LinkQueue;
-import Tree.LinkClueBinaryTree;
+import BinaryTree.LinkClueBinaryTree;
 
 
 public class Main {
