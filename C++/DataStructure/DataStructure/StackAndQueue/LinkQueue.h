@@ -5,6 +5,18 @@ template<class T>
 class LinkQueue:LinkList<T>
 {
 public:
+	LinkQueue(T data[],int size)
+	{
+		for (int i=0;i<size;i++)
+		{
+			enQueue(data[i]);
+		}
+	}
+
+	LinkQueue()//默认构造函数
+	{
+		
+	}
 	/**
 	 * 入队操作
 	 */

@@ -7,9 +7,9 @@ import Tree.LinkClueBinaryTree;
 public class Main {
     public static void main(String[] args){
         LinkClueBinaryTree<String> binaryTree=new LinkClueBinaryTree<>();
-        String[] s=new String[]{"A","B","D","#","#","E","#","#","C","#","F","#","#"};
+        String[] s=new String[]{"A","B","#","#","E","#","#"};
         LinkQueue<String> data=new LinkQueue<>(s);
-        binaryTree.creStringTree(data);
+        binaryTree.creStringTree(data);//若要使用键盘输入创建二叉树，则使用binaryTree.creStringTree()
         System.out.print("前序遍历结果为：");
         binaryTree.print(0);
         System.out.println();
