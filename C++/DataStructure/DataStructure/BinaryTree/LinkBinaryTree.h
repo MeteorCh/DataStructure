@@ -1,9 +1,7 @@
 #pragma once
-#include <vector>
 #include <string>
 #include <iostream>
 #include "../StackAndQueue/LinkQueue.h"
-#include <queue>
 
 template<class T>
 class LinkBinaryTree
@@ -103,6 +101,28 @@ protected:
 		delete queue1, queue2;
 	}
 
+	int  getHeight(Node* node)//递归计算树的高度
+	{
+		if (node)
+		{
+			int lHeight = 1+getHeight(node->lChild);
+			int rHeight = 1 + getHeight(node->rChild);
+			return lHeight>rHeight?lHeight:rHeight;
+		}
+		return 0;
+	}
+
+	int getNodeSize(Node* node)
+	{
+		if (node)
+		{
+			int lSize= 1 + getHeight(node->lChild);
+			int rSize= 1 + getHeight(node->rChild);
+			return lSize + rSize;
+		}
+		return 0;
+	}
+
 	void releaseTree(Node* node)//通过后续遍历逐步删除树
 	{
 		if (node)
@@ -145,6 +165,16 @@ public:
 		default:
 			std::cout << "输入参数有误";
 		}
+	}
+
+	int getHeight()
+	{
+		return getHeight(root);
+	}
+
+	int getNodeSize()
+	{
+		return getNodeSize(root);
 	}
 };
 

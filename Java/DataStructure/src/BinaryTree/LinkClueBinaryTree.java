@@ -43,6 +43,18 @@ public class LinkClueBinaryTree<T> {
             lChild=null;
             rChild=null;
         }
+
+        public T getData() {
+            return data;
+        }
+
+        public void setrChild(Node rChild) {
+            this.rChild = rChild;
+        }
+
+        public void setlChild(Node lChild) {
+            this.lChild = lChild;
+        }
     }
 
     protected Node<T> root;//根节点
@@ -80,7 +92,11 @@ public class LinkClueBinaryTree<T> {
         return node;
     }
 
-    protected void midTraverseClue(Node node){//中序遍历线索化
+    /**
+     * 中序遍历线索化
+     * @param node
+     */
+    protected void midTraverseClue(Node node){
         if (node!=null){
             midTraverseClue(node.lChild);
             if (node.lChild==null){
@@ -125,6 +141,10 @@ public class LinkClueBinaryTree<T> {
         }
     }
 
+    /**
+     * 线索化中序遍历
+     * @param node
+     */
     public void clueMidTraverse(Node node){
         if (node==null){//找到中序遍历的第一个节点，即树中最左边的叶节点
             Node firstNode=pre;
@@ -203,6 +223,10 @@ public class LinkClueBinaryTree<T> {
         }
     }
 
+    /**
+     * 获取树的高度
+     * @return
+     */
     public int getHeight(){//获取树的高度
         return getHeight(root);
     }
@@ -220,6 +244,10 @@ public class LinkClueBinaryTree<T> {
         }
     }
 
+    /**
+     * 获取树中的节点个数
+     * @return
+     */
     public int getSize(){//获取树的节点总数
         return getSize(root);
     }

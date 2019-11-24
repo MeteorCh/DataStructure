@@ -11,7 +11,8 @@ int main()
 	string strDatas[] = { "A","B","D","#","#","E","#","#","C","#","F","#","#" };
 	LinkQueue<string> *datas=new LinkQueue<string>(strDatas,13);
 	LinkBinaryTree<string> binaryTree;
-	binaryTree.createTestStrTree(datas);//用户自己输入创建树
+	binaryTree.createTestStrTree(datas);
+	delete datas;
 	//binaryTree.createInputStrTree();
 	cout << "前序遍历结果为：";
 	binaryTree.print(0);
@@ -25,7 +26,8 @@ int main()
 	cout << "层次遍历结果为：";
 	binaryTree.print(3);
 	cout << endl;
-	delete datas;
+	cout << "树的高度为："<<binaryTree.getHeight()<<endl;
+	cout << "树中节点的个数为：" << binaryTree.getNodeSize() << endl;
     return 0;
 }
 
