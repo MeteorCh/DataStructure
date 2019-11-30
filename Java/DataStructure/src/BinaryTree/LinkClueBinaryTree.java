@@ -55,6 +55,20 @@ public class LinkClueBinaryTree<T> {
         public void setlChild(Node lChild) {
             this.lChild = lChild;
         }
+
+        public boolean isLeafNode(){
+            return (this.lChild==null&&this.rFlag)
+                    ||(this.lFlag&&this.rChild==null)
+                    ||(this.lFlag&&this.rFlag);
+        }
+
+        public Node getlChild() {
+            return lChild;
+        }
+
+        public Node getrChild() {
+            return rChild;
+        }
     }
 
     protected Node<T> root;//根节点
@@ -141,21 +155,34 @@ public class LinkClueBinaryTree<T> {
         }
     }
 
+    protected Node first(Node node){
+        Node curNode=node;
+        while(curNode!=null&&!curNode.lFlag)
+            curNode=node.lChild;
+        return curNode;
+    }
+
+    /**
+     * 在线索化中序遍历过程中，查找node的下一个节点
+     * @param node
+     */
+    protected Node getNextNode(Node node){
+        if (!node.rFlag){
+            return first(node.rChild);
+        }else {
+            return node.rChild;
+        }
+    }
+
     /**
      * 线索化中序遍历
      * @param node
      */
     public void clueMidTraverse(Node node){
-        if (node==null){//找到中序遍历的第一个节点，即树中最左边的叶节点
-            Node firstNode=pre;
-            while (firstNode!=null){
-                System.out.print(firstNode.data+",");
-                firstNode=firstNode.rChild;
-            }
-        }else
-        {
-            pre=node;
-            clueMidTraverse(node.lChild);
+        Node curNode=first(node);//首先找到第一个节点，中序遍历中，为最左下角的一个节点
+        while (curNode!=null){
+            System.out.print(curNode.data+",");
+            curNode=getNextNode(curNode);
         }
     }
 
@@ -204,18 +231,23 @@ public class LinkClueBinaryTree<T> {
     public void print(int choice){
         switch (choice){
             case 0:
+                System.out.println("前序遍历结果为：");
                 preTraverse(root);
                 break;
             case 1:
+                System.out.println("中序遍历结果为：");
                 midTraverse(root);
                 break;
             case 2:
+                System.out.println("后序遍历结果为：");
                 postTraverse(root);
                 break;
             case 3:
+                System.out.println("层次遍历结果为：");
                 levelTraverse();
                 break;
             case 4:
+                System.out.println("线索化中序遍历结果为：");
                 clueMidTraverse(root);
                 break;
             default:

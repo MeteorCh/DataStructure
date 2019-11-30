@@ -14,5 +14,6 @@ public class Main {
         datas.add(new HuffBaseType("D",2));
         HuffmanTree<HuffBaseType> huffmanTree=new HuffmanTree<>(datas);
         huffmanTree.print(3);
+        huffmanTree.printHuffCode();
     }
 }

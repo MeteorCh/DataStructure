@@ -51,5 +51,28 @@ public class HuffmanTree<T extends HuffBaseType> extends LinkClueBinaryTree<T> {
                 nodeList.add(newRoot);
             this.root=newRoot;
         }
+        //构建完成后，进行中序线索化
+        midTraverseClue(root);
+    }
+
+    protected void printHuffCode(Node node,String code){
+        if (node!=null){
+            //如果节点是叶子节点
+            if (node.isLeafNode())
+                System.out.println(node.getData()+"的Huffman编码为："+code);
+            else {
+                if (node.getlChild()!=null)
+                    printHuffCode(node.getlChild(),code+"0");
+                if (node.getrChild()!=null)
+                    printHuffCode(node.getrChild(),code+"1");
+            }
+        }
+    }
+
+    /**
+     * 输出叶节点的Huffman编码
+     */
+    public void printHuffCode(){
+        printHuffCode(root,"");
     }
 }

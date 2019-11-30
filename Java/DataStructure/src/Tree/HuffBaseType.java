@@ -27,6 +27,6 @@ public class HuffBaseType{
 
     @Override
     public String toString() {
-        return "id:"+id+",weight:"+weight;
+        return "id:"+id+"|weight:"+weight;
     }
 }
