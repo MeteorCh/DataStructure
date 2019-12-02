@@ -5,6 +5,18 @@ import BinaryTree.LinkClueBinaryTree;
 import java.util.Comparator;
 import java.util.LinkedList;
 
+/**
+ * 赫夫曼树的实现及赫夫曼编码的输出
+ * 使用示例：
+ LinkedList<HuffBaseType> datas=new LinkedList<>();
+ datas.add(new HuffBaseType("A",9));
+ datas.add(new HuffBaseType("B",4));
+ datas.add(new HuffBaseType("C",5));
+ datas.add(new HuffBaseType("D",2));
+ HuffmanTree<HuffBaseType> huffmanTree=new HuffmanTree<>(datas);
+ huffmanTree.print(3);
+ huffmanTree.printHuffCode();
+ */
 public class HuffmanTree<T extends HuffBaseType> extends LinkClueBinaryTree<T> {
 
     /**

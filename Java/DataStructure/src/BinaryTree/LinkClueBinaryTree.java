@@ -56,6 +56,10 @@ public class LinkClueBinaryTree<T> {
             this.lChild = lChild;
         }
 
+        /**
+         * 判断this节点是否是叶子节点
+         * @return true为叶子节点
+         */
         public boolean isLeafNode(){
             return (this.lChild==null&&this.rFlag)
                     ||(this.lFlag&&this.rChild==null)
