@@ -5,19 +5,18 @@ import java.util.LinkedList;
 /**
  * 图的邻接矩阵实现
  * 使用示例：
- AdjMatrixGraphy graphy=new AdjMatrixGraphy();
- System.out.print(graphy);
- graphy.traverse(false);
+ AdjMatrixGraph graph=new AdjMatrixGraph();
+ System.out.print(graph);
+ graph.traverse(false);
  System.out.println();
- graphy.traverse(true);
+ graph.traverse(true);
  */
-public class AdjMatrixGraphy {
+public class AdjMatrixGraph extends Graph{
     public static int INFINITY=Integer.MAX_VALUE/2;
-    protected int vertexNum=0;//图中顶点的数量
     protected int[][] matrix;//邻接矩阵
     protected String[] vertexNames;//顶点名
 
-    AdjMatrixGraphy(int vertexNum){
+    AdjMatrixGraph(int vertexNum){
         this.vertexNum=vertexNum;
         vertexNames=new String[vertexNum];
         matrix=new int[vertexNum][vertexNum];
@@ -27,7 +26,7 @@ public class AdjMatrixGraphy {
                 matrix[i][j]=INFINITY;
     }
 
-    public AdjMatrixGraphy(){//默认构造函数
+    public AdjMatrixGraph(){//默认构造函数
         this(6);
         makeTestData();
     }
@@ -49,36 +48,10 @@ public class AdjMatrixGraphy {
         matrix[5][0]=3;matrix[5][4]=1;
     }
 
-    /**
-     * 遍历图
-     * @param choice false为深度优先遍历，1为广度优先遍历
-     */
-    public void traverse(boolean choice){
-        if (choice)
-        {
-            System.out.print("广度优先遍历结果为：");
-            boolean[] flags=new boolean[vertexNum];
-            for (int i=0;i<vertexNum;++i){
-                if (!flags[i]){//如果当前节点没有访问过，则从当前节点开始深度优先遍历
-                    bfsTraverse(0,flags);
-                }
-            }
-        }
-        else
-        {
-            System.out.print("深度优先遍历结果为：");
-            boolean[] flags=new boolean[vertexNum];
-            for (int i=0;i<vertexNum;++i){
-                if (!flags[i]){//如果当前节点没有访问过，则从当前节点开始深度优先遍历
-                    dfsTraverse(0,flags);
-                }
-            }
-        }
-    }
 
-    /**
-     * 深度优先遍历图
-     */
+
+
+    @Override
     protected void dfsTraverse(int curNode,boolean[] flags){
         System.out.print(vertexNames[curNode]+",");
         flags[curNode]=true;
@@ -89,9 +62,7 @@ public class AdjMatrixGraphy {
         }
     }
 
-    /**
-     * 广度优先遍历图
-     */
+    @Override
     protected void bfsTraverse(int curNode,boolean[] flags){
         LinkedList<Integer> queue=new LinkedList<>();
         LinkedList<Integer> queue2=new LinkedList<>();
