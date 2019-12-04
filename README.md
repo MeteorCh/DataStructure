@@ -21,3 +21,6 @@
 ### [5.树](https://blog.csdn.net/qq_31709249/article/details/103208057)
 源代码：
 * Java: [https://github.com/MeteorCh/DataStructure/tree/master/Java/DataStructure/src/Tree](https://github.com/MeteorCh/DataStructure/tree/master/Java/DataStructure/src/Tree)
+### [6.图及其五种存储方式](https://blog.csdn.net/qq_31709249/article/details/103329610)
+源代码
+* Java：[https://github.com/MeteorCh/DataStructure/tree/master/Java/DataStructure/src/Graph](https://github.com/MeteorCh/DataStructure/tree/master/Java/DataStructure/src/Graph)
