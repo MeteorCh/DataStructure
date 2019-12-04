@@ -2,6 +2,16 @@ package Graph;
 
 import java.util.LinkedList;
 
+/**
+ * 十字链表存储的图
+ * @param <T> 数据泛型
+ * @param <E> 权重泛型
+ * 使用示例：
+CrossLinkedListGraph graph=CrossLinkedListGraph.getTestInstance();
+System.out.println(graph);
+graph.traverse(false);
+graph.traverse(true);
+ */
 public class CrossLinkedListGraph<T,E extends Number> extends Graph {
     /**
      * 边类
@@ -75,7 +85,7 @@ public class CrossLinkedListGraph<T,E extends Number> extends Graph {
         //生成边数据
         int[][] testData={{0,1,1},{0,2,6},{2,0,7},{2,3,4},
                 {3,0,5},{3,1,2},{3,2,3}};
-        for (int i=0;i<7;i++){
+        for (int i=0;i<testData.length;i++){
             graph.addEdge(testData[i][0],testData[i][1],testData[i][2]);
         }
         return graph;

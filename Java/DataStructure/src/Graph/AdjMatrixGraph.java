@@ -5,7 +5,7 @@ import java.util.LinkedList;
 /**
  * 图的邻接矩阵实现
  * 使用示例：
- AdjMatrixGraph graph=new AdjMatrixGraph();
+ AdjMatrixGraph graph=AdjMatrixGraph.getTestInstance();
  System.out.print(graph);
  graph.traverse(false);
  System.out.println();
@@ -37,12 +37,11 @@ public class AdjMatrixGraph extends Graph{
         for (int i=0;i<graph.vertexNum;i++)
             graph.vertexNames[i]=vertexes[i];
         //边赋值
-        graph.matrix[0][1]=5;graph.matrix[0][3]=7;
-        graph.matrix[1][2]=4;
-        graph.matrix[2][0]=8;graph.matrix[2][5]=9;
-        graph.matrix[3][2]=5;graph.matrix[3][5]=6;
-        graph.matrix[4][3]=5;
-        graph.matrix[5][0]=3;graph.matrix[5][4]=1;
+        int[][] testData={{0,1,5},{0,3,7},{1,2,4},{2,0,8},
+                {2,5,9},{3,2,5},{3,5,6},{4,3,5},{5,0,3},{5,4,1}};
+        for (int i=0;i<testData.length;i++){
+            graph.matrix[testData[i][0]][testData[i][1]]=testData[i][2];
+        }
         return graph;
     }
 

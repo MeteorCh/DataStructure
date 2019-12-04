@@ -70,21 +70,11 @@ public class AdjListGraph<T,E extends Number> extends Graph{
             graph.vertexes[i]=node;
         }
         try{
-            //v1的边
-            graph.insertEdge(0,1,3);
-            graph.insertEdge(0,3,4);
-            graph.insertEdge(0,2,6);
-            //v2的边
-            graph.insertEdge(1,0,3);
-            graph.insertEdge(1,3,9);
-            //v3的边
-            graph.insertEdge(2,0,6);
-            graph.insertEdge(2,4,5);
-            //v4的边
-            graph.insertEdge(3,0,4);
-            graph.insertEdge(3,1,9);
-            //v5的边
-            graph.insertEdge(4,2,5);
+            int[][] testData={{0,1,3},{0,3,4},{0,2,6},{1,0,3},
+                    {1,3,9},{2,0,6},{2,4,5},{3,0,4},{3,1,9},{4,2,5}};
+            for (int i=0;i<testData.length;i++){
+                graph.insertEdge(testData[i][0],testData[i][1],testData[i][2]);
+            }
         }catch (IndexOutOfBoundsException e){
             System.out.println("输入参数有误");
         }
