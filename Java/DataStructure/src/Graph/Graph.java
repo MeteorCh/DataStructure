@@ -1,7 +1,11 @@
 package Graph;
 
 public abstract class Graph {
-    protected int vertexNum=0;
+    protected int vertexNum;
+
+    Graph(int vertexNum){
+        this.vertexNum=vertexNum;
+    }
 
     /**
      * 遍历

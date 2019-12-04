@@ -47,41 +47,47 @@ public class AdjListGraph<T,E extends Number> extends Graph{
             this.weight=weight;
             next=null;
         }
-
-        public void insertNode(ArcNode node){
-            this.next=node;
-        }
     }
 
     protected VertexNode<T,E>[] vertexes;//顶点数组
 
     protected AdjListGraph(int vertexNum){//分配空间
-        this.vertexNum=vertexNum;
+        super(vertexNum);
         vertexes=new VertexNode[vertexNum];
     }
 
-    public static AdjListGraph getTestInstance(){//构造测试数据实例
+    public void insertEdge(int headIndex,int tailIndex,E weight) throws IndexOutOfBoundsException {
+        if (headIndex>=0&&headIndex<vertexNum&&tailIndex>=0&&tailIndex<vertexNum&&headIndex!=tailIndex)
+            vertexes[headIndex].insertArc(new ArcNode(tailIndex,weight));
+        else
+            throw new IndexOutOfBoundsException("输入参数错误！");
+    }
+
+    public static AdjListGraph getTestInstance() {//构造测试数据实例
         AdjListGraph<String,Integer> graph= new AdjListGraph<String, Integer>(5);
-        VertexNode<String,Integer> node1=new VertexNode("V1");
-        node1.insertArc(new ArcNode(1,3));
-        node1.insertArc(new ArcNode(3,4));
-        node1.insertArc(new ArcNode(2,6));
-        graph.vertexes[0]= node1;
-        VertexNode<String,Integer> node2=new VertexNode("V2");
-        node2.insertArc(new ArcNode(0,3));
-        node2.insertArc(new ArcNode(3,9));
-        graph.vertexes[1]= node2;
-        VertexNode<String,Integer> node3=new VertexNode("V3");
-        node3.insertArc(new ArcNode(0,6));
-        node3.insertArc(new ArcNode(4,5));
-        graph.vertexes[2]= node3;
-        VertexNode<String,Integer> node4=new VertexNode("V4");
-        node4.insertArc(new ArcNode(0,4));
-        node4.insertArc(new ArcNode(1,9));
-        graph.vertexes[3]= node4;
-        VertexNode<String,Integer> node5=new VertexNode("V5");
-        node5.insertArc(new ArcNode(2,5));
-        graph.vertexes[4]=node5;
+        for (int i=0;i<5;i++){
+            VertexNode<String,Integer> node=new VertexNode("V"+(i+1));
+            graph.vertexes[i]=node;
+        }
+        try{
+            //v1的边
+            graph.insertEdge(0,1,3);
+            graph.insertEdge(0,3,4);
+            graph.insertEdge(0,2,6);
+            //v2的边
+            graph.insertEdge(1,0,3);
+            graph.insertEdge(1,3,9);
+            //v3的边
+            graph.insertEdge(2,0,6);
+            graph.insertEdge(2,4,5);
+            //v4的边
+            graph.insertEdge(3,0,4);
+            graph.insertEdge(3,1,9);
+            //v5的边
+            graph.insertEdge(4,2,5);
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("输入参数有误");
+        }
         return graph;
     }
 

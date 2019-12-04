@@ -1,12 +1,13 @@
 
 import Graph.AdjListGraph;
+import Graph.AdjMatrixGraph;
 
 public class Main {
     public static void main(String[] args){
-        AdjListGraph graph=AdjListGraph.getTestInstance();
+        AdjMatrixGraph graph=AdjMatrixGraph.getTestInstance();
+        System.out.print(graph);
         graph.traverse(false);
-        graph.traverse(true);
         System.out.println();
-        System.out.println(graph);
+        graph.traverse(true);
     }
 }

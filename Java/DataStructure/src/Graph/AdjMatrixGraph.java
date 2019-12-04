@@ -17,7 +17,7 @@ public class AdjMatrixGraph extends Graph{
     protected String[] vertexNames;//顶点名
 
     AdjMatrixGraph(int vertexNum){
-        this.vertexNum=vertexNum;
+        super(vertexNum);
         vertexNames=new String[vertexNum];
         matrix=new int[vertexNum][vertexNum];
         //将邻接矩阵中的值初始化为INFINITY
@@ -26,30 +26,25 @@ public class AdjMatrixGraph extends Graph{
                 matrix[i][j]=INFINITY;
     }
 
-    public AdjMatrixGraph(){//默认构造函数
-        this(6);
-        makeTestData();
-    }
-
     /**
-     * 生成测试数据
+     * 构造测试数据图
+     * @return
      */
-    protected void makeTestData(){
+    public static AdjMatrixGraph getTestInstance(){
+        AdjMatrixGraph graph=new AdjMatrixGraph(6);
         //顶点名称赋值
         String[] vertexes={"V1","V2","V3","V4","V5","V6"};
-        for (int i=0;i<vertexNum;i++)
-            vertexNames[i]=vertexes[i];
+        for (int i=0;i<graph.vertexNum;i++)
+            graph.vertexNames[i]=vertexes[i];
         //边赋值
-        matrix[0][1]=5;matrix[0][3]=7;
-        matrix[1][2]=4;
-        matrix[2][0]=8;matrix[2][5]=9;
-        matrix[3][2]=5;matrix[3][5]=6;
-        matrix[4][3]=5;
-        matrix[5][0]=3;matrix[5][4]=1;
+        graph.matrix[0][1]=5;graph.matrix[0][3]=7;
+        graph.matrix[1][2]=4;
+        graph.matrix[2][0]=8;graph.matrix[2][5]=9;
+        graph.matrix[3][2]=5;graph.matrix[3][5]=6;
+        graph.matrix[4][3]=5;
+        graph.matrix[5][0]=3;graph.matrix[5][4]=1;
+        return graph;
     }
-
-
-
 
     @Override
     protected void dfsTraverse(int curNode,boolean[] flags){
