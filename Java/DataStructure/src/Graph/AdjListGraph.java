@@ -14,7 +14,7 @@ System.out.println();
 System.out.println(graph);
  */
 
-public class AdjListGraph<T,E extends Number> extends Graph{
+public class AdjListGraph<T,E extends Number> extends Graph<E>{
     public static class VertexNode<T,E extends Number>{//顶点类
         protected T data;//数据
         protected ArcNode<E> firstArc;//第一条边
@@ -56,7 +56,9 @@ public class AdjListGraph<T,E extends Number> extends Graph{
         vertexes=new VertexNode[vertexNum];
     }
 
-    public void insertEdge(int headIndex,int tailIndex,E weight) throws IndexOutOfBoundsException {
+    @Override
+    protected void addEdge(int headIndex, int tailIndex, E weight) {
+        super.addEdge(headIndex, tailIndex, weight);
         if (headIndex>=0&&headIndex<vertexNum&&tailIndex>=0&&tailIndex<vertexNum&&headIndex!=tailIndex)
             vertexes[headIndex].insertArc(new ArcNode(tailIndex,weight));
         else
@@ -73,7 +75,7 @@ public class AdjListGraph<T,E extends Number> extends Graph{
             int[][] testData={{0,1,3},{0,3,4},{0,2,6},{1,0,3},
                     {1,3,9},{2,0,6},{2,4,5},{3,0,4},{3,1,9},{4,2,5}};
             for (int i=0;i<testData.length;i++){
-                graph.insertEdge(testData[i][0],testData[i][1],testData[i][2]);
+                graph.addEdge(testData[i][0],testData[i][1],testData[i][2]);
             }
         }catch (IndexOutOfBoundsException e){
             System.out.println("输入参数有误");

@@ -1,6 +1,6 @@
 package Graph;
 
-public abstract class Graph {
+public abstract class Graph<E extends Number> {
     protected int vertexNum;
 
     Graph(int vertexNum){
@@ -29,6 +29,14 @@ public abstract class Graph {
             }
         }
     }
+
+    /**
+     * 给图中增加一条边
+     * @param headIndex 起点索引
+     * @param tailIndex 终点索引
+     * @param weight 权重值
+     */
+    protected void addEdge(int headIndex,int tailIndex,E weight){}
 
     /**
      * 深度优先遍历

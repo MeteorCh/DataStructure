@@ -12,7 +12,7 @@ System.out.println(graph);
 graph.traverse(false);
 graph.traverse(true);
  */
-public class CrossLinkedListGraph<T,E extends Number> extends Graph {
+public class CrossLinkedListGraph<T,E extends Number> extends Graph<E> {
     /**
      * 边类
      * @param <T> 权重泛型
@@ -59,7 +59,8 @@ public class CrossLinkedListGraph<T,E extends Number> extends Graph {
      * @param tailIndex 边的终点顶点在数组中的下标
      * @param weight 边的权重
      */
-    public void addEdge(int headIndex,int tailIndex,E weight){
+    @Override
+    public void addEdge(int headIndex, int tailIndex, E weight){
         CArcNode<E> arcNode=new CArcNode<E>(headIndex,tailIndex,weight);
         //使用头插法，将其插入到顶点的firstOut后面
         CVertexNode<T,E> headNode=vertexes[headIndex];

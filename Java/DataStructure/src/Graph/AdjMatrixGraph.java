@@ -11,7 +11,7 @@ import java.util.LinkedList;
  System.out.println();
  graph.traverse(true);
  */
-public class AdjMatrixGraph extends Graph{
+public class AdjMatrixGraph extends Graph<Integer>{
     public static int INFINITY=Integer.MAX_VALUE/2;
     protected int[][] matrix;//邻接矩阵
     protected String[] vertexNames;//顶点名
@@ -24,6 +24,12 @@ public class AdjMatrixGraph extends Graph{
         for (int i=0;i<vertexNum;i++)
             for (int j=0;j<vertexNum;j++)
                 matrix[i][j]=INFINITY;
+    }
+
+    @Override
+    protected void addEdge(int headIndex, int tailIndex, Integer weight) {
+        super.addEdge(headIndex, tailIndex, weight);
+        this.matrix[headIndex][tailIndex]=(Integer) weight;
     }
 
     /**
@@ -39,9 +45,8 @@ public class AdjMatrixGraph extends Graph{
         //边赋值
         int[][] testData={{0,1,5},{0,3,7},{1,2,4},{2,0,8},
                 {2,5,9},{3,2,5},{3,5,6},{4,3,5},{5,0,3},{5,4,1}};
-        for (int i=0;i<testData.length;i++){
-            graph.matrix[testData[i][0]][testData[i][1]]=testData[i][2];
-        }
+        for (int i=0;i<testData.length;i++)
+            graph.addEdge(testData[i][0],testData[i][1],testData[i][2]);
         return graph;
     }
 
