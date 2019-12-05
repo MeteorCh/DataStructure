@@ -6,7 +6,7 @@ import Graph.CrossLinkedListGraph;
 
 public class Main {
     public static void main(String[] args){
-        AdjMultipleListGraph graph=AdjMultipleListGraph.getInstance();
+        AdjMultipleListGraph graph=AdjMultipleListGraph.getTestInstance();
         System.out.println(graph);
         graph.traverse(false);
         graph.traverse(true);

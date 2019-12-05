@@ -6,6 +6,11 @@ import java.util.LinkedList;
  * 图的邻接多重表表示
  * @param <T> 节点数据泛型
  * @param <E> 权重泛型
+ * 使用示例：
+AdjMultipleListGraph graph=AdjMultipleListGraph.getTestInstance();
+System.out.println(graph);
+graph.traverse(false);
+graph.traverse(true);
  */
 public class AdjMultipleListGraph<T,E extends Number> extends Graph<E>{
 
@@ -44,7 +49,7 @@ public class AdjMultipleListGraph<T,E extends Number> extends Graph<E>{
         tailVertex.firstEdge=arc;
     }
 
-    public static AdjMultipleListGraph getInstance(){
+    public static AdjMultipleListGraph getTestInstance(){
         AdjMultipleListGraph<String, Integer> graph=new AdjMultipleListGraph<String, Integer>(5);
         for (int i=0;i<5;i++)
             graph.vertices[i]=new AMVertex<>("V"+(i+1));
