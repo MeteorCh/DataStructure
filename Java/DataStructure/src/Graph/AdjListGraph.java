@@ -141,4 +141,11 @@ public class AdjListGraph<T,E extends Number> extends Graph<E>{
         }
         return result;
     }
+
+    public void findMiniSpanningTree(boolean flag){
+        //求解图的最小生成树
+        if (flag){//用kruskal算法求解
+
+        }
+    }
 }
