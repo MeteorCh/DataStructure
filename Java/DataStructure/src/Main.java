@@ -15,6 +15,6 @@ public class Main {
         graph.traverse(false);
         System.out.println();
         graph.traverse(true);
-        graph.findMiniPath(0,4);
+        graph.findMiniPath(0,6,false);
     }
 }

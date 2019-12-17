@@ -82,11 +82,24 @@ public class AdjMatrixGraph<T> extends Graph<Integer>{
     }
 
     /**
-     * 计算start到end的最短路径
-     * @param start
-     * @param end
+     * 寻找start到end的最短路径
+     * @param start 起点下标
+     * @param end 终点下标
+     * @param method 方法标志，true为Dijkstra算法，false为Floyd算法
      */
-    public void findMiniPath(int start,int end){
+    public void findMiniPath(int start,int end,boolean method){
+        if (method)
+            dijkstraMethod(start,end);
+        else
+            floydMethod(start,end);
+    }
+
+    /**
+     * 利用dijkstra算法计算start到end的最短路径
+     * @param start 起点下标
+     * @param end 终点下标
+     */
+    protected void dijkstraMethod(int start,int end){
         int[] miniCost=new int[vertexNum];//记录最短权值
         int[] pathIndex=new int[vertexNum];//记录最短路径经过的节点
         for (int i=0;i<vertexNum;++i) {
@@ -135,6 +148,43 @@ public class AdjMatrixGraph<T> extends Graph<Integer>{
             if (pathIndex[i]!=-1)
                 System.out.println("顶点"+vertexNames[start]+"到顶点"+vertexNames[i]+"的最短距离为："+miniCost[i]);
         }
+    }
+
+    /**
+     * 利用floyd算法计算start到end的最短路径
+     * @param start 起点下标
+     * @param end 终点下标
+     */
+    protected void floydMethod(int start,int end){
+        int[][] weightMatrix=new int[vertexNum][vertexNum];
+        int[][] path=new int[vertexNum][vertexNum];
+        for (int i=0;i<vertexNum;i++){
+            for (int j=0;j<vertexNum;j++)
+            {
+                weightMatrix[i][j]=matrix[i][j];
+                path[i][j]=j;
+            }
+        }
+        for (int k=0;k<vertexNum;k++){
+            for (int i=0;i<vertexNum;i++)
+                for (int j=0;j<vertexNum;j++){
+                    int newWeight=weightMatrix[i][k]+weightMatrix[k][j];
+                    if (weightMatrix[i][j]>newWeight)
+                    {
+                        weightMatrix[i][j]=newWeight;
+                        path[i][j]=path[i][k];
+                    }
+                }
+        }
+        System.out.println();
+        String result="顶点"+vertexNames[start]+"到顶点"+vertexNames[end]+"的最短路径为："+vertexNames[start];
+        int k=path[start][end];
+        while (k!=end){
+            result+="->"+vertexNames[k];
+            k=path[k][end];
+        }
+        result+="->"+vertexNames[end];
+        System.out.println(result);
     }
 
     /**
