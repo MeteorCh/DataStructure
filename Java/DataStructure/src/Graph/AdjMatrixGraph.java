@@ -40,6 +40,104 @@ public class AdjMatrixGraph<T> extends Graph<Integer>{
     }
 
     /**
+     * 利用prim算法求图的最小生成树
+     */
+    public void prim(){
+        System.out.println();
+        //设置标记数组
+        int[] lowCost=new int[vertexNum];
+        int[] mst=new int[vertexNum];
+        //从第一个顶点开始，设置lowCost
+        lowCost[0]=0;
+        mst[0]=0;
+        for (int i=1;i<vertexNum;i++)
+        {
+            lowCost[i]=matrix[0][i];
+            mst[i]=0;
+        }
+        //从第一个点开始，每次寻找权重最小的边
+        int min;
+        for (int i=1;i<vertexNum;i++){
+            //每次找到minCost中的最小值
+            int k=0;//记录每次最小权下标顶点
+            min=INFINITY;
+            for (int j=0;j<vertexNum;j++){
+                if (lowCost[j]<min&&lowCost[j]!=0){
+                    min=lowCost[j];
+                    k=j;
+                }
+            }
+            if (k==0)
+                break;
+            System.out.println("顶点"+vertexNames[mst[k]]+"和顶点"+vertexNames[k]+"相连");
+            lowCost[k]=0;//表示k节点已加入最小生成树
+            for (int j=1;j<vertexNum;j++){
+                //判断通过k节点中转，其他点的距离是否会变小
+                if (lowCost[j]!=0&&matrix[k][j]<lowCost[j]){
+                    lowCost[j]=matrix[k][j];
+                    mst[j]=k;
+                }
+            }
+        }
+    }
+
+    /**
+     * 计算start到end的最短路径
+     * @param start
+     * @param end
+     */
+    public void findMiniPath(int start,int end){
+        int[] miniCost=new int[vertexNum];//记录最短权值
+        int[] pathIndex=new int[vertexNum];//记录最短路径经过的节点
+        for (int i=0;i<vertexNum;++i) {
+            miniCost[i]=matrix[start][i];
+            pathIndex[i]=-1;
+        }
+        miniCost[start]=0;
+        pathIndex[start]=0;
+        int miniStart=start;
+        for (int i=0;i<vertexNum;i++){
+            //找到miniCost中的最小值
+            int mini=INFINITY;
+            int k=-1;
+            for (int j=0;j<vertexNum;j++){
+                if (mini>miniCost[j]&&pathIndex[j]==-1&&matrix[miniStart][j]<INFINITY)
+                {
+                    mini=miniCost[j];
+                    k=j;
+                }
+            }
+            pathIndex[k]=miniStart;
+            if (k==-1||k==end)
+            {
+                break;
+            }
+            else{//k为最小点
+                for (int j=0;j<vertexNum;++j){
+                    if (miniCost[k]+matrix[k][j]<miniCost[j]&&pathIndex[j]==-1)
+                    {
+                        miniCost[j]=miniCost[k]+matrix[k][j];
+                        miniStart=k;
+                    }
+                }
+            }
+        }
+        //输出最短路径
+        System.out.println();
+        int pre=end;
+        String pathResult=vertexNames[start]+"到"+vertexNames[end]+"的最短路径为:"+vertexNames[end];
+        while (pre!=start){
+            pathResult+="<-"+vertexNames[pathIndex[pre]];
+            pre=pathIndex[pre];
+        }
+        System.out.println(pathResult+"（路径权重和为"+miniCost[end]+"）");
+        for (int i=0;i<vertexNum;i++){
+            if (pathIndex[i]!=-1)
+                System.out.println("顶点"+vertexNames[start]+"到顶点"+vertexNames[i]+"的最短距离为："+miniCost[i]);
+        }
+    }
+
+    /**
      * 构造测试数据图
      * @return
      */
@@ -107,47 +205,5 @@ public class AdjMatrixGraph<T> extends Graph<Integer>{
             result+="\n";
         }
         return result;
-    }
-
-    /**
-     * 利用prim算法求图的最小生成树
-     */
-    public void prim(){
-        System.out.println();
-        //设置标记数组
-        int[] lowCost=new int[vertexNum];
-        int[] mst=new int[vertexNum];
-        //从第一个顶点开始，设置lowCost
-        lowCost[0]=0;
-        mst[0]=0;
-        for (int i=1;i<vertexNum;i++)
-        {
-            lowCost[i]=matrix[0][i];
-            mst[i]=0;
-        }
-        //从第一个点开始，每次寻找权重最小的边
-        int min;
-        for (int i=1;i<vertexNum;i++){
-            //每次找到minCost中的最小值
-            int k=0;//记录每次最小权下标顶点
-            min=INFINITY;
-            for (int j=0;j<vertexNum;j++){
-                if (lowCost[j]<min&&lowCost[j]!=0){
-                    min=lowCost[j];
-                    k=j;
-                }
-            }
-            if (k==0)
-                break;
-            System.out.println("顶点"+vertexNames[mst[k]]+"和顶点"+vertexNames[k]+"相连");
-            lowCost[k]=0;//表示k节点已加入最小生成树
-            for (int j=1;j<vertexNum;j++){
-                //判断通过k节点中转，其他点的距离是否会变小
-                if (lowCost[j]!=0&&matrix[k][j]<lowCost[j]){
-                    lowCost[j]=matrix[k][j];
-                    mst[j]=k;
-                }
-            }
-        }
     }
 }
