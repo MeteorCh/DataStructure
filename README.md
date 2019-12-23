@@ -24,3 +24,9 @@
 ### [6.图及其五种存储方式](https://blog.csdn.net/qq_31709249/article/details/103329610)
 源代码
 * Java：[https://github.com/MeteorCh/DataStructure/tree/master/Java/DataStructure/src/Graph](https://github.com/MeteorCh/DataStructure/tree/master/Java/DataStructure/src/Graph)
+### [7.图的最小生成树](https://blog.csdn.net/qq_31709249/article/details/103516512)
+源代码
+* Java：[https://github.com/MeteorCh/DataStructure/blob/master/Java/DataStructure/src/Graph/MiniSpanningTree.java](https://github.com/MeteorCh/DataStructure/blob/master/Java/DataStructure/src/Graph/MiniSpanningTree.java)
+### [8.图的最短路径](https://blog.csdn.net/qq_31709249/article/details/103588126)
+源代码
+* Java：[https://github.com/MeteorCh/DataStructure/blob/master/Java/DataStructure/src/Graph/AdjMatrixGraph.java](https://github.com/MeteorCh/DataStructure/blob/master/Java/DataStructure/src/Graph/AdjMatrixGraph.java)
