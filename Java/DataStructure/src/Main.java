@@ -1,9 +1,10 @@
 
-import Searching.OrderListSearching;
+import Searching.BinarySortingTree.BinarySortingTree;
 
 public class Main {
     public static void main(String[] args){
-        int[] data={0,1,16,24,35,47,59,62,73,88,99};
-        System.out.println(OrderListSearching.fbSearch(data,99));
+        int[] data={62,88,58,47,35,73,51,99,37,93};
+        BinarySortingTree tree=new BinarySortingTree(data);
+        tree.deleteData(62);
     }
 }
