@@ -83,8 +83,14 @@ public class BinarySortingTree{
             flag[0]=true;
             return node;
         }
+
+
     }
 
+    /**
+     * 提供的对外操作接口
+     * @param key
+     */
     public void deleteData(int key){
         deleteData(root,key);
     }
@@ -106,6 +112,10 @@ public class BinarySortingTree{
         }
     }
 
+    /**
+     * 根据节点的左右子树情况来删除节点
+     * @param node
+     */
     protected void deleteData(TreeNode node){
         if (node.rChild==null||node.lChild==null){//右子树或右子树为空
             TreeNode replacement=node.rChild==null?node.lChild:node.rChild;
@@ -132,6 +142,5 @@ public class BinarySortingTree{
             node.data=curNode.data;
             deleteData(curNode);
         }
-
     }
 }
