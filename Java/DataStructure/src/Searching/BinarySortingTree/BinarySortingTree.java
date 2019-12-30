@@ -2,9 +2,24 @@ package Searching.BinarySortingTree;
 
 /**
  * 二叉排序树
+ * 使用示例：
+ *          int[] data={62,88,58,47,35,73,51,99,37,93};
+ *         BinarySortingTree tree=new BinarySortingTree(data);
+ *         tree.find(35);
+ *         tree.deleteData(62);
  */
 public class BinarySortingTree{
-    TreeNode root;//根节点
+
+    public static class TreeNode {
+        protected int data;//数据
+        protected TreeNode lChild,rChild,parent;//左孩子、右孩子、父节点
+        public TreeNode(int data){
+            this.data=data;
+            lChild=rChild=parent=null;
+        }
+    }
+
+    protected TreeNode root;//根节点
     public BinarySortingTree(){
     }
 
@@ -18,7 +33,7 @@ public class BinarySortingTree{
      * 插入数据
      * @param data
      */
-    protected void insertData(int data){
+    private void insertData(int data){
         if (root==null){
             //如果根节点为空，给根节点开辟空间
             root=new TreeNode(data);
