@@ -1,7 +1,51 @@
 package Searching.BinarySortingTree;
 
+/**
+ * 平衡二叉树的实现
+ * 使用示例：
+ *         int[] data={20,10,0,30,40,50,60,90,80,70};
+ *         AVLTree tree=new AVLTree(data);
+ *         int findKey=30;
+ *         System.out.println("键"+findKey+"在平衡二叉树中"+(tree.find(findKey)==null?"不存在":"存在"));
+ * 删除的各类情况示例：
+ *      1.右子树中LL型删除
+ *         int[] data={20,10,0,30,40,50,60,90,80,70};
+ *         tree.deleteNode(70);
+ *         tree.deleteNode(90);
+ *         tree.deleteNode(80);
+ *      2.左子树中LL型删除
+ *         int[] data={20,10,0,30,40,50,60,90,80,70};
+ *         tree.insertData(-1);
+ *         tree.deleteNode(20);
+ *      3.右子树中RR型删除
+ *         int[] data={20,10,0,30,40,50,60,90,80,70};
+ *         tree.deleteNode(70);
+ *         tree.deleteNode(90);
+ *         tree.deleteNode(80);
+ *      4.左子树中RR型删除
+ *         int[] data={20,10,0,30,40,50,60,90,80,70};
+ *         tree.insertData(25);
+ *         tree.deleteNode(0);
+ *      5.右子树中LR型删除
+ *         int[] data={20,10,0,30,40,50,60,90,80,70};
+ *         tree.deleteNode(40);
+ *         tree.deleteNode(50);
+ *         tree.deleteNode(90);
+ *      6.左子树中LR型删除
+ *         int[] data={20,10,0,30,40,50,60,90,80,70};
+ *         tree.insertData(5);
+ *         tree.deleteNode(20);
+ *      7.右子树中RL型删除
+ *         int[] data={20,10,0,30,40,50,60,80};
+ *         tree.deleteNode(40);
+ *         tree.insertData(55);
+ *         tree.deleteNode(80);
+ *      8.左子树中RL型删除
+ *         int[] data={20,10,0,30,40,50,60,90,80,70};
+ *         tree.insertData(15);
+ *         tree.deleteNode(0);
+ */
 public class AVLTree {
-
     public static class TreeNode{
         protected int data;//数据
         protected TreeNode lChild,rChild,parent;//左孩子、右孩子、父节点
@@ -12,6 +56,10 @@ public class AVLTree {
             lChild=rChild=parent=null;
             height=1;
         }
+
+        public int getData() {
+            return data;
+        }
     }
 
     TreeNode root;
@@ -19,6 +67,19 @@ public class AVLTree {
     public AVLTree(int[] data){
         for (int item:data)
             insertData(item);
+    }
+
+    public TreeNode find(int key){//利用非递归的方式实现查找
+        TreeNode curNode=root;
+        while (curNode!=null){
+            if (key==curNode.data){
+                return curNode;
+            }else if (key<curNode.data){
+                curNode=curNode.lChild;
+            }else
+                curNode=curNode.rChild;
+        }
+        return null;
     }
 
     public int getHeight(TreeNode node){
@@ -100,7 +161,7 @@ public class AVLTree {
         return node;
     }
 
-    public void deleteNode(int data){//提供给外部操作的接口
+    public void deleteNode(int data){//提供给外部操作的删除节点接口
         deleteNode(root,data);
     }
 
@@ -117,15 +178,19 @@ public class AVLTree {
             node.height=1+Math.max(getHeight(node.lChild),getHeight(node.rChild));
             int balance=getBalanceFactor(node);
             TreeNode tmp=node.parent;//保存变量，因为node.parent在llRotate时会变化
+            boolean flag=checkChild(tmp,node);//flag为false代表在左子树上，true代表在右子树上
             if (balance>1&&getBalanceFactor(node.lChild)>=0) {//LL型
                 System.out.println("LL型删除");
-                tmp.lChild=llRotate(node);
-                tmp.lChild.parent=tmp;
+                if (flag){//右子树
+                    tmp.rChild=llRotate(node);
+                    tmp.rChild.parent=tmp;
+                }else {//左子树
+                    tmp.lChild=llRotate(node);
+                    tmp.lChild.parent=tmp;
+                }
             }
             if (balance > 1 && getBalanceFactor(node.lChild) < 0){ //LR型
                 System.out.println("LR型删除");
-                //这里需要判断是接到左子树上还是右子树上
-                boolean flag=checkChild(tmp,node);//flag为false代表在左子树上，true代表在右子树上
                 node.lChild =  rrRotate(node.lChild);
                 node.lChild.parent=node;
                 if (flag){
@@ -139,14 +204,16 @@ public class AVLTree {
 
             if (balance < -1 && getBalanceFactor(node.rChild) <= 0) {//RR型
                 System.out.println("RR型删除");
-                tmp.rChild=rrRotate(node);
-                tmp.rChild.parent=tmp;
+                if (flag){//右子树
+                    tmp.rChild=rrRotate(node);
+                    tmp.rChild.parent=tmp;
+                }else {//左子树
+                    tmp.lChild=rrRotate(node);
+                    tmp.lChild.parent=tmp;
+                }
             }
-
             if (balance < -1 && getBalanceFactor(node.rChild) > 0){  //Rl型
                 System.out.println("RL型删除");
-                //这里需要判断是接到左子树上还是右子树上
-                boolean flag=checkChild(tmp,node);//flag为false代表在左子树上，true代表在右子树上
                 node.rChild = llRotate(node.rChild);
                 node.rChild.parent=node;
                 if (flag){
@@ -162,13 +229,16 @@ public class AVLTree {
 
     protected boolean checkChild(TreeNode parent,TreeNode child){
         //这里需要判断是接到左子树上还是右子树上
-        if (parent.lChild==child)
-            return false;
-        else
-            return true;
+        if (parent!=null){
+            if (parent.lChild==child)
+                return false;
+            else
+                return true;
+        }
+        return false;
     }
 
-    protected void deleteNode(TreeNode node){
+    protected void deleteNode(TreeNode node){//节点的移除操作，分为节点有左子树或右子树为空，左右子树均不为空两种情况
         if (node.rChild==null||node.lChild==null){//右子树或右子树为空
             TreeNode replace=node.rChild==null?node.lChild:node.rChild;
             if (node.parent!=null){
