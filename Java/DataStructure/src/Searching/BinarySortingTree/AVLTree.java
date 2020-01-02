@@ -10,38 +10,46 @@ package Searching.BinarySortingTree;
  * 删除的各类情况示例：
  *      1.右子树中LL型删除
  *         int[] data={20,10,0,30,40,50,60,90,80,70};
+ *         AVLTree tree=new AVLTree(data);
  *         tree.deleteNode(70);
  *         tree.deleteNode(90);
  *         tree.deleteNode(80);
  *      2.左子树中LL型删除
  *         int[] data={20,10,0,30,40,50,60,90,80,70};
+ *         AVLTree tree=new AVLTree(data);
  *         tree.insertData(-1);
  *         tree.deleteNode(20);
  *      3.右子树中RR型删除
  *         int[] data={20,10,0,30,40,50,60,90,80,70};
+ *         AVLTree tree=new AVLTree(data);
  *         tree.deleteNode(70);
  *         tree.deleteNode(90);
  *         tree.deleteNode(80);
  *      4.左子树中RR型删除
  *         int[] data={20,10,0,30,40,50,60,90,80,70};
+ *         AVLTree tree=new AVLTree(data);
  *         tree.insertData(25);
  *         tree.deleteNode(0);
  *      5.右子树中LR型删除
  *         int[] data={20,10,0,30,40,50,60,90,80,70};
+ *         AVLTree tree=new AVLTree(data);
  *         tree.deleteNode(40);
  *         tree.deleteNode(50);
  *         tree.deleteNode(90);
  *      6.左子树中LR型删除
  *         int[] data={20,10,0,30,40,50,60,90,80,70};
+ *         AVLTree tree=new AVLTree(data);
  *         tree.insertData(5);
  *         tree.deleteNode(20);
  *      7.右子树中RL型删除
  *         int[] data={20,10,0,30,40,50,60,80};
+ *         AVLTree tree=new AVLTree(data);
  *         tree.deleteNode(40);
- *         tree.insertData(55);
- *         tree.deleteNode(80);
+ *         tree.insertData(75);
+ *         tree.deleteNode(50);
  *      8.左子树中RL型删除
  *         int[] data={20,10,0,30,40,50,60,90,80,70};
+ *         AVLTree tree=new AVLTree(data);
  *         tree.insertData(15);
  *         tree.deleteNode(0);
  */
@@ -180,46 +188,50 @@ public class AVLTree {
             TreeNode tmp=node.parent;//保存变量，因为node.parent在llRotate时会变化
             boolean flag=checkChild(tmp,node);//flag为false代表在左子树上，true代表在右子树上
             if (balance>1&&getBalanceFactor(node.lChild)>=0) {//LL型
-                System.out.println("LL型删除");
                 if (flag){//右子树
+                    System.out.println("RLL型删除");
                     tmp.rChild=llRotate(node);
                     tmp.rChild.parent=tmp;
                 }else {//左子树
+                    System.out.println("LLL型删除");
                     tmp.lChild=llRotate(node);
                     tmp.lChild.parent=tmp;
                 }
             }
             if (balance > 1 && getBalanceFactor(node.lChild) < 0){ //LR型
-                System.out.println("LR型删除");
                 node.lChild =  rrRotate(node.lChild);
                 node.lChild.parent=node;
                 if (flag){
+                    System.out.println("RLR型删除");
                     tmp.rChild=llRotate(node);
                     tmp.rChild.parent=tmp;
                 }else {
+                    System.out.println("LLR型删除");
                     tmp.lChild=llRotate(node);
                     tmp.lChild.parent=tmp;
                 }
             }
 
             if (balance < -1 && getBalanceFactor(node.rChild) <= 0) {//RR型
-                System.out.println("RR型删除");
                 if (flag){//右子树
+                    System.out.println("RRR型删除");
                     tmp.rChild=rrRotate(node);
                     tmp.rChild.parent=tmp;
                 }else {//左子树
+                    System.out.println("LRR型删除");
                     tmp.lChild=rrRotate(node);
                     tmp.lChild.parent=tmp;
                 }
             }
             if (balance < -1 && getBalanceFactor(node.rChild) > 0){  //Rl型
-                System.out.println("RL型删除");
                 node.rChild = llRotate(node.rChild);
                 node.rChild.parent=node;
                 if (flag){
+                    System.out.println("RRL型删除");
                     tmp.rChild=rrRotate(node);
                     tmp.rChild.parent=tmp;
                 }else {
+                    System.out.println("LRL型删除");
                     tmp.lChild=rrRotate(node);
                     tmp.lChild.parent=tmp;
                 }
