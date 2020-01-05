@@ -1,12 +1,10 @@
 
 import Searching.BinarySortingTree.AVLTree;
+import Sorting.Sorting;
 
 public class Main {
     public static void main(String[] args){
-        int[] data={20,10,0,30,40,50,60,80};
-        AVLTree tree=new AVLTree(data);
-        tree.deleteNode(40);
-        tree.insertData(75);
-        tree.deleteNode(50);
+        int[] data={9,1,5,8,3,7,4,6,2};
+        Sorting.mergeSort(data);
     }
 }
